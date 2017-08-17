@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.vg.photogallery.R;
+import com.vg.photogallery.controller.activities.PhotoPageActivity;
 import com.vg.photogallery.model.GalleryItem;
 import com.vg.photogallery.network.FlickrFetchr;
 import com.vg.photogallery.network.ThumbnailDownloader;
@@ -214,18 +215,39 @@ public class PhotoGalleryFragment extends Fragment {
         }
     }
 
-    private class PhotoHolder extends RecyclerView.ViewHolder {
+    private class PhotoHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private ImageView mItemImageView;
+
+        private GalleryItem mGalleryItem;
 
         public PhotoHolder(View itemView) {
             super(itemView);
             mItemImageView = (ImageView) itemView
                     .findViewById(R.id.fragment_photo_gallery_image_view);
+            itemView.setOnClickListener(this);
         }
 
         public void bindDrawable(Drawable drawable) {
             mItemImageView.setImageDrawable(drawable);
+        }
+
+        public void bindGalleryItem(GalleryItem galleryItem) {
+            mGalleryItem = galleryItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+            // to open URL with image using default browser
+//            Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.
+//                    getPhotoPageUri());
+
+            // to open URL with image using WebView and PhotoGalleryActivity
+            Intent i = PhotoPageActivity.newIntent(getActivity(),
+                    mGalleryItem.getPhotoPageUri());
+
+            startActivity(i);
         }
     }
 
@@ -251,6 +273,8 @@ public class PhotoGalleryFragment extends Fragment {
             // set temporary image for holding view
             Drawable placeholder = getResources().getDrawable(R.drawable.bill_up_close);
             photoHolder.bindDrawable(placeholder);
+
+            photoHolder.bindGalleryItem(galleryItem);
 
             mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
         }
