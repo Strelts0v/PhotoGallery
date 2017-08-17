@@ -27,6 +27,12 @@ public class PollService extends IntentService {
 
     private static final int POLL_INTERVAL = 1000 * 60; // 60 seconds
 
+    public static final String ACTION_SHOW_NOTIFICATION =
+            "com.vg.photogallery.SHOW_NOTIFICATION";
+
+    public static final String PERM_PRIVATE =
+            "com.vg.photogallery.PRIVATE";
+
     public static Intent newIntent(Context context) {
         return new Intent(context, PollService.class);
     }
