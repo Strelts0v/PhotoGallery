@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- configChanges is used to avoid repeat upload of web page
+             after turning orientation of user phone -->
+        <activity android:name=".controller.activities.PhotoPageActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <service android:name=".service.PollService" />
 
