@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * HandlerThread is a class for starting a new thread that has a looper.
+ * The looper can then be used to create handler classes. Note that
+ * start() must still be called.
+ */
 public class ThumbnailDownloader<T> extends HandlerThread {
 
     private static final String TAG = "ThumbnailDownloader";
