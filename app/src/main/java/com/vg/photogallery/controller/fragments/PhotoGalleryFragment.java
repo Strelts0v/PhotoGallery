@@ -176,6 +176,10 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     /**
+     * AsyncTask class is good for short work which not repeats very often.
+     * On the backend of AsyncTask is work ExecutorService and all AsyncTask
+     * instances are performed after each other in one background thread
+     *
      * Generic params:
      * 1st param - type of input params (now it is Void)
      * example of calling: task.execute("First parameter", "Second parameter", "Etc.");

@@ -35,6 +35,12 @@ public class PollService extends IntentService {
         super(TAG);
     }
 
+    /**
+     * checks query string for searching photos, if it isn't null that called
+     * search method from Flickr api, else uploads last 100 photos. Also it checks
+     * last result of uploading photos, if they are different method configure
+     * notification on top of the home screen
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         if (!isNetworkAvailableAndConnected()) {
@@ -87,6 +93,9 @@ public class PollService extends IntentService {
         QueryPreferences.setLastResultId(this, resultId);
     }
 
+    /**
+     * Sets flag of alarm manager for notifications
+     */
     public static void setServiceAlarm(Context context, boolean isOn) {
         Intent i = PollService.newIntent(context);
 
@@ -111,6 +120,11 @@ public class PollService extends IntentService {
         }
     }
 
+    /**
+     * checks available network and valid connection of device with it
+     * @return true - everything with connection is all right
+     *         false - not
+     */
     private boolean isNetworkAvailableAndConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -120,6 +134,11 @@ public class PollService extends IntentService {
         return isNetworkConnected;
     }
 
+    /**
+     * checks flag of alarm for notifications
+     * @return true - flag is set ON
+     *         false - flag is set OFF
+     */
     public static boolean isServiceAlarmOn(Context context) {
         Intent i = PollService.newIntent(context);
         PendingIntent pi = PendingIntent
